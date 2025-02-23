@@ -46,7 +46,7 @@ function loadTest(test) {
             const imgElem = document.createElement('img');
             imgElem.src = question.image;
             imgElem.style.width = '90%'; // Увеличиваем ширину до 90% контейнера
-            imgElem.style.maxWidth = '600px'; // Ограничение по ширине, чтобы не было слишком огромным
+            imgElem.style.maxWidth = '500px'; // Ограничение по ширине, чтобы не было слишком огромным
             imgElem.style.height = 'auto'; // Авто высота, чтобы сохранить пропорции
             imgElem.style.maxHeight = '300px'; // Ограничение по высоте, чтобы не было слишком длинным
             imgElem.style.objectFit = 'cover'; // Заполняет область без искажений
