@@ -190,13 +190,8 @@ button:hover {
   font-weight: bold;
 }
 
-.question img {
-    display: block;
-    max-width: 200px;
-    max-height: 200px;
-}
-
-.question img[src=""],
-.question img:not([src]) {
-    display: none;
+.question-image {
+    pointer-events: none; /* Запрещает взаимодействие */
+    user-drag: none;
+    -webkit-user-drag: none;
 }

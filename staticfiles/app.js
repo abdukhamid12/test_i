@@ -54,12 +54,21 @@ function loadTest(test) {
             imgElem.style.margin = '10px auto';
 
             // Проверяем, загрузилось ли изображение
+            imgElem.oncontextmenu = function () {
+                return false;
+            };
+
+            // Запрещаем перетаскивание изображения
+            imgElem.ondragstart = function () {
+                return false;
+            };
+
             imgElem.onload = function () {
-                questionElem.prepend(imgElem); // Добавляем изображение ПЕРЕД текстом
+                questionElem.prepend(imgElem);
             };
 
             imgElem.onerror = function () {
-                imgElem.remove(); // Удаляем, если изображение битое
+                imgElem.remove();
             };
         }
 
@@ -232,3 +241,7 @@ async function submitTest() {
         window.location.href = '/';
     }, 2000);
 }
+
+document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+});
