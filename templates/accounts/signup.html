@@ -1,0 +1,159 @@
+{% extends 'auth_base.html' %}
+{% load static %}
+
+{% block auth %}
+<style>
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif; /* Школьный шрифт */
+  background: rgb(188, 206, 239); /* Фон в стиле школьной тетради */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Полноэкранная высота */
+  overflow: hidden; /* Убирает прокрутку */
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background: white; /* Светлый фон для школьной стилистики */
+  border: 2px solid black; /* Школьный стиль рамки */
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.login-container img {
+  width: 100px; /* Уменьшение размера логотипа */
+  margin-bottom: 10px;
+}
+
+.login-container h2 {
+  font-size: 22px;
+  color: #ff5722;
+  margin-bottom: 15px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  padding: 10px;
+  font-size: 14px; /* Уменьшение размера текста */
+  margin-bottom: 15px;
+  border: 1px solid blue;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-container button {
+  padding: 10px 20px;
+  border: 2px solid black;
+  border-radius: 10px;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-container button:hover {
+  border: 2px solid blue;
+  color: blue;
+  transition: 0.5s;
+}
+
+.login-container p {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.login-container p a {
+  color: #ff5722;
+  text-decoration: underline;
+}
+
+.option .option-text {
+  font-size: clamp(14px, 2.5vw, 20px);
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    width: 90%; /* Займет 90% ширины экрана */
+    max-width: 350px; /* Ограничение по ширине */
+    padding: 15px; /* Уменьшение отступов */
+    border: none;
+  }
+  .question {
+    padding: 20px;
+    margin: 15px 0;
+    border-width: 2px;
+    border-radius: 15px;
+  }
+
+  .option {
+    padding: 15px;
+    margin: 10px 0;
+    border-width: 1px;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .option .option-text {
+    font-size: 16px;
+  }
+
+  .option .option-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .login-container h2 {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .question {
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  .option {
+    padding: 10px;
+    margin: 8px 0;
+  }
+
+  .option .option-text {
+    font-size: 14px;
+  }
+
+  .option .option-icon {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+}
+
+
+</style>
+
+<body>
+  <div class="login-container">
+      <img src="{% static 'img/imest_logo.png' %}" alt="School Logo">
+      <form method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">Sign Up</button>
+      </form>
+      <p>Back to <a href="{% url 'login' %}" style="color: blue;">Log in</a></p>
+  </div>
+</body>
+{% endblock %}

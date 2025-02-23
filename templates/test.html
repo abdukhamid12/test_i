@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<div class="container" id="test-room">
+    <input type="text" id="test-id" placeholder="Введите ID теста">
+    <button onclick="enterTest()">Начать тест</button>
+</div>
+<div class="container" id="test-container" style="display:none;">
+    <div id="questions-container">
+        {% for question in question_image %}
+        <div class="question">
+            {% if question.image and question.image.url.strip %}
+            <img src="{{ question.image.url }}" class="question-image" onerror="this.style.display='none';">
+            {% elif question.text %}
+            <p>{{ question.text }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="pagination" id="pagination"></div>
+    <button id="submit-button" onclick="submitTest()" style="display:none;">Завершить тест</button>
+    <p id="timer"></p>
+    <p id="completion-message" style="display:none;">Тест завершен! Спасибо за участие.</p>
+</div>
+{% endblock %}
