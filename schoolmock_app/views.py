@@ -60,7 +60,10 @@ class TestViewSet(viewsets.ModelViewSet):
                     correct_answer = AnswerOption.objects.filter(question=question, is_correct=True).first()
 
                     # Проверка правильности ответа
-                    points_awarded = 1 if correct_answer and int(answer_id) == correct_answer.id else 0
+                    points_awarded = 0
+                    if correct_answer and int(answer_id) == correct_answer.id:
+                        points_awarded = question.difficulty  # Используем сложность вопроса как множитель
+
                     print(student.id)
                     print(test.id)
                     print(question.id)
