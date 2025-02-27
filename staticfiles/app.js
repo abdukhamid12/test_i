@@ -219,23 +219,29 @@ async function submitTest() {
     };
 
     const csrftoken = getCookie('csrftoken');
-    console.log(csrftoken);
-    // Send all data to the backend
-    await fetch(`/api/tests/${testId}/submit_answer/`, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken // Replace with the actual CSRF token value
-      },
-      credentials: 'include',
-      body: JSON.stringify({
-          student_details: studentDetails,
-          answers: answers
-      })
-  });
 
-    document.getElementById('completion-message').style.display = 'block';
-    document.getElementById('submit-button').style.display = 'none';
+    // Отправляем ответы на сервер
+    const response = await fetch(`/api/tests/${testId}/submit_answer/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+            student_details: studentDetails,
+            answers: answers
+        })
+    });
+
+    const result = await response.json();
+    console.log(result);  // Проверяем, что пришло от сервера
+
+    if (result && result.total_points !== undefined) {
+        alert(`Вы завершили тест. Ваш результат: ${result.total_points} баллов.`);
+    } else {
+        alert("Ошибка: не удалось получить ваш балл.");
+    }
 
     setTimeout(() => {
         window.location.href = '/';
