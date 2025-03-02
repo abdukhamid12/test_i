@@ -1,15 +1,21 @@
-html{
-    overflow: hidden;
-}
 body {
   background: rgb(188, 206, 239); /* Фон в стиле школьной тетради */
   margin: 0;
   padding: 0;
-  overflow: hidden;
+}
+
+.logo_img {
+   width: 250px;
+   height: 60px;
+   display: block;
+   margin: 70px auto;
 }
 
 .container {
   padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   max-width: 800px;
   margin: 100px auto; /* Центрирование */
