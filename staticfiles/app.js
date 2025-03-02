@@ -238,15 +238,32 @@ async function submitTest() {
     console.log(result);  // Проверяем, что пришло от сервера
 
     if (result && result.total_points !== undefined) {
-        alert(`Вы завершили тест. Ваш результат: ${result.total_points} баллов.`);
+        Swal.fire({
+            title: "Тест завершён!",
+            text: `Ваш результат: ${result.total_points} баллов.`,
+            icon: "success",
+            confirmButtonText: "Ок",
+            background: "#fefefe",
+            color: "#333",
+            timer: 5000,
+            timerProgressBar: true
+        });
     } else {
-        alert("Ошибка: не удалось получить ваш балл.");
+        Swal.fire({
+            title: "Ошибка",
+            text: "Не удалось получить ваш балл. Попробуйте ещё раз.",
+            icon: "error",
+            confirmButtonText: "Ок",
+            background: "#fefefe",
+            color: "#333"
+        });
     }
 
     setTimeout(() => {
         window.location.href = '/';
-    }, 2000);
+    }, 5000);
 }
+
 
 document.addEventListener('contextmenu', function (event) {
     event.preventDefault();
