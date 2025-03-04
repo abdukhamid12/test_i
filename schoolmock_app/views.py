@@ -104,15 +104,22 @@ class TestViewSet(viewsets.ModelViewSet):
 
         return Response({'status': 'answers submitted', 'total_points': total_points, 'details': response_data},
                         status=status.HTTP_200_OK)
+
     @action(detail=False, methods=['get'])
     def test_by_id(self, request):
-          test_id = request.query_params.get('test_id')
-          test_test = Test.objects.filter(id=test_id).first()
-          if not test_test:
-              return Response({'error': 'Invalid test ID'}, status=status.HTTP_404_NOT_FOUND)
+        test_id = request.query_params.get('test_id')
+        test_test = Test.objects.filter(id=test_id).first()
 
-          serializer = self.get_serializer(test_test)
-          return Response(serializer.data)
+        if not test_test:
+            return Response({'error': 'Invalid test ID'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Добавляем duration в ответ
+        serializer = self.get_serializer(test_test)
+        data = serializer.data
+        data['duration'] = test_test.duration * 60  # Переводим минуты в секунды
+
+        return Response(data)
+
 
 def test(request):
     return render(request, 'test.html',)

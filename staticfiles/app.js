@@ -1,5 +1,5 @@
 let timer;
-let timeLeft = 3600;  // 1 hour in seconds
+let timeLeft = 0; // Переводим минуты в секунды
 let testId = null;
 let currentQuestionIndex = 0;
 let answeredQuestions = new Set(); // To track answered questions
@@ -8,21 +8,30 @@ let answeredQuestions = new Set(); // To track answered questions
 let studentName, studentSurname, studentSchool, studentClass;
 
 async function enterTest() {
-  const testInput = document.getElementById('test-id');
-  if (!testInput) {
-      console.error('Input element with ID "test-id" not found.');
-      return;
-  }
+    const testInput = document.getElementById('test-id');
+    if (!testInput) {
+        console.error('Input element with ID "test-id" not found.');
+        return;
+    }
 
-  testId = testInput.value;
-  const response = await fetch(`/api/tests/test_by_id?test_id=${testId}`);
-  if (response.status === 404) {
-      alert("Тест с таким ID не найден");
-      return;
-  }
-  const test = await response.json();
-  loadTest(test);
-  startTimer();
+    testId = testInput.value; // testId должен быть доступен глобально
+    console.log("Test ID:", testId); // Проверка, что testId получен
+
+    try {
+        const response = await fetch(`/api/tests/test_by_id?test_id=${testId}`);
+        if (!response.ok) {
+            throw new Error("Тест с таким ID не найден");
+        }
+
+        const test = await response.json();
+        console.log("Test data:", test); // Проверяем, что API вернул данные
+
+        loadTest(test);
+        timeLeft = test.duration; // Теперь duration приходит в секундах
+        startTimer();
+    } catch (error) {
+        alert(error.message);
+    }
 }
 
 function loadTest(test) {
