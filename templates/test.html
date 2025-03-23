@@ -26,4 +26,30 @@
     <p id="timer"></p>
     <p id="completion-message" style="display:none;">Тест завершен! Спасибо за участие.</p>
 </div>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Отключаем выделение текста на всей странице
+            document.body.style.userSelect = 'none';
+
+            // Отключаем выделение текста и контекстное меню для всех элементов
+            document.addEventListener('selectstart', event => event.preventDefault());
+            document.addEventListener('copy', event => event.preventDefault());
+            document.addEventListener('cut', event => event.preventDefault());
+
+            // Отключаем возможность перетаскивания любых изображений
+            document.querySelectorAll('img, button, input, label, a, div, span').forEach(element => {
+                element.draggable = false;
+            });
+
+            // Отключаем контекстное меню (правый клик)
+            document.addEventListener('contextmenu', event => event.preventDefault());
+
+            // Отключаем касания на мобильных устройствах (выделение)
+            document.addEventListener('touchstart', event => {
+                if (event.target.nodeName !== 'INPUT' && event.target.nodeName !== 'TEXTAREA') {
+                    event.preventDefault();
+                }
+            }, { passive: false });
+        });
+</script>
 {% endblock %}
